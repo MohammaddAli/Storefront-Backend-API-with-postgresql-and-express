@@ -78,7 +78,7 @@ var storefrontOrder = /** @class */ (function () {
                         return [4 /*yield*/, database_1["default"].connect()];
                     case 1:
                         conn = _a.sent();
-                        sql = 'SELECT * FROM orders WHERE id = ($1) RETURNING*';
+                        sql = 'SELECT * FROM orders WHERE id = ($1)';
                         return [4 /*yield*/, conn.query(sql, [id])];
                     case 2:
                         result = _a.sent();
@@ -99,11 +99,12 @@ var storefrontOrder = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
+                        console.log(order);
                         return [4 /*yield*/, database_1["default"].connect()];
                     case 1:
                         conn = _a.sent();
-                        sql = 'INSERT INTO orders (status) VALUES(($1) RETURNING*';
-                        return [4 /*yield*/, conn.query(sql, [order.status])];
+                        sql = 'INSERT INTO orders (status,user_id) VALUES($1,$2) RETURNING *';
+                        return [4 /*yield*/, conn.query(sql, [order.status, order.user_id])];
                     case 2:
                         result = _a.sent();
                         conn.release();
@@ -126,7 +127,7 @@ var storefrontOrder = /** @class */ (function () {
                         return [4 /*yield*/, database_1["default"].connect()];
                     case 1:
                         conn = _a.sent();
-                        sql = 'UPDATE orders SET status = ($1) WHERE id = ($2) RETURNING*';
+                        sql = 'UPDATE orders SET status = ($1) WHERE id = ($2) RETURNING *';
                         return [4 /*yield*/, conn.query(sql, [order.status, id])];
                     case 2:
                         result = _a.sent();
@@ -174,7 +175,7 @@ var storefrontOrder = /** @class */ (function () {
                         return [4 /*yield*/, database_1["default"].connect()];
                     case 1:
                         conn = _a.sent();
-                        sql = 'INSERT INTO order-products (quantity, order_id, product_id) VALUES($1, $2, $3) RETURNING*';
+                        sql = 'INSERT INTO order-products (quantity, order_id, product_id) VALUES($1, $2, $3) RETURNING *';
                         return [4 /*yield*/, conn.query(sql, [orderProduct.quantity, orderProduct.order_id, orderProduct.product_id])];
                     case 2:
                         result = _a.sent();
@@ -198,7 +199,7 @@ var storefrontOrder = /** @class */ (function () {
                         return [4 /*yield*/, database_1["default"].connect()];
                     case 1:
                         conn = _a.sent();
-                        sql = "Select * from orders where user_id = ".concat(user_id, " and status = 'Active' limit 1");
+                        sql = "Select * from orders where user_id = ($1) and status = 'Active' limit 1";
                         return [4 /*yield*/, conn.query(sql, [user_id])];
                     case 2:
                         result = _a.sent();

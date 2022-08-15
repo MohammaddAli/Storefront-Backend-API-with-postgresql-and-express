@@ -14,7 +14,7 @@ const {
   ENV,
 } = process.env;
 
-console.log(`I am in the ${ENV} Environment`);
+
 
 if (ENV === 'dev') {
   client = new Pool({
@@ -33,5 +33,5 @@ if (ENV === 'test') {
     password: POSTGTRES_PASSWORD,
   });
 }
-
+console.log(`I am in the ${ENV} Environment`);
 export default client;

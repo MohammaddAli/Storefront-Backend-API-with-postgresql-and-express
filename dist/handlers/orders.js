@@ -112,6 +112,7 @@ var create = function (req, res) { return __awaiter(void 0, void 0, void 0, func
         switch (_a.label) {
             case 0:
                 try {
+                    console.log('before headerAuthorization in create order');
                     headerAuthorization = req.headers.authorization;
                     token = headerAuthorization.split(' ')[1];
                     jsonwebtoken_1["default"].verify(token, process.env.TOKEN_SECRET);
@@ -124,10 +125,13 @@ var create = function (req, res) { return __awaiter(void 0, void 0, void 0, func
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
+                console.log('before creating order in create order');
                 return [4 /*yield*/, storeOrder.create(req.body)];
             case 2:
                 order = _a.sent();
+                console.log('before res.json order');
                 res.json(order);
+                console.log('order ' + order);
                 return [3 /*break*/, 4];
             case 3:
                 err_3 = _a.sent();

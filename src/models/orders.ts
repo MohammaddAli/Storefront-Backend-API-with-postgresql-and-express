@@ -30,7 +30,7 @@ try{
 async show(id:number): Promise<Order> {
     try{
         const conn = await Client.connect();
-        const sql = 'SELECT * FROM orders WHERE id = ($1) RETURNING*';
+        const sql = 'SELECT * FROM orders WHERE id = ($1)';
         const result = await conn.query(sql,[id]);
         conn.release();
         return result.rows[0];
@@ -41,9 +41,10 @@ async show(id:number): Promise<Order> {
 
     async create(order:Order): Promise<Order> {
         try{
+            console.log(order);
             const conn = await Client.connect();
-            const sql = 'INSERT INTO orders (status) VALUES(($1) RETURNING*';
-            const result = await conn.query(sql,[order.status]);
+            const sql = 'INSERT INTO orders (status,user_id) VALUES($1,$2) RETURNING *';
+            const result = await conn.query(sql,[order.status,order.user_id]);
             conn.release();
             return result.rows[0];
         }   catch(err) {
@@ -54,7 +55,7 @@ async show(id:number): Promise<Order> {
         async update(id:number, order:Order): Promise<Order> {
             try{
                 const conn = await Client.connect();
-                const sql = 'UPDATE orders SET status = ($1) WHERE id = ($2) RETURNING*';
+                const sql = 'UPDATE orders SET status = ($1) WHERE id = ($2) RETURNING *';
                 const result = await conn.query(sql,[order.status,id]);
                 conn.release();
                 return result.rows[0];
@@ -78,7 +79,7 @@ async show(id:number): Promise<Order> {
                 async addProduct(orderProduct: OrderProducts): Promise<OrderProducts> {
                     try {
                         const conn = await Client.connect();
-                        const sql = 'INSERT INTO order-products (quantity, order_id, product_id) VALUES($1, $2, $3) RETURNING*'
+                        const sql = 'INSERT INTO order-products (quantity, order_id, product_id) VALUES($1, $2, $3) RETURNING *'
                         const result = await conn.query(sql, [orderProduct.quantity, orderProduct.order_id, orderProduct.product_id]);
                         conn.release();
                         return result.rows[0];
@@ -90,7 +91,7 @@ async show(id:number): Promise<Order> {
                 async currentOrder(user_id: number): Promise<Order> {
                     try{
                         const conn = await Client.connect();
-                        const sql = `Select * from orders where user_id = ${user_id} and status = 'Active' limit 1`;
+                        const sql = `Select * from orders where user_id = ($1) and status = 'Active' limit 1`;
                         const result = await conn.query(sql,[user_id]);
                         conn.release();
                         return result.rows[0];

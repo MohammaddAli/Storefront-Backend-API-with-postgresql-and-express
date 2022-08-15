@@ -32,7 +32,7 @@ export class storefrontUser {
     async show(id:number): Promise<User> {
         try{
             const conn = await Client.connect();
-            const sql = 'SELECT * FROM users WHERE id = ($1) RETURNING*';
+            const sql = 'SELECT * FROM users WHERE id = ($1)';
             const result = await conn.query(sql,[id]);
             conn.release();
             return result.rows[0];
@@ -43,12 +43,20 @@ export class storefrontUser {
     
         async create(user:User): Promise<User> {
             try{
+                console.log('the create beginning');
                 const conn = await Client.connect();
-                const sql = 'INSERT INTO users (first_name,last_name,user_name,password) VALUES(($1, $2, $3, $4) RETURNING*';
-               const hash = bcrypt.hashSync(`${user.password}${pepper}`, parseInt(salt as string));
+                console.log('before sql');
+                const sql = 'INSERT INTO users (first_name,last_name,user_name,password) VALUES($1, $2, $3, $4) RETURNING *';
+                console.log('after sql and before hashsync');
+               const hash = bcrypt.hashSync(user.password + pepper, parseInt(salt as string));
+               console.log('after hashsync');
+               console.log('hash is ' + hash);
                 const result = await conn.query(sql,[user.first_name, user.last_name, user.user_name, hash]);
+                console.log('after result');
+                console.log(result);
                 conn.release();
                 return result.rows[0];
+                
             }   catch(err) {
                 throw new Error(`Cannot create user ${err}`);
             }
@@ -57,9 +65,9 @@ export class storefrontUser {
             async update(id:number, user:User): Promise<User> {
                 try{
                     const conn = await Client.connect();
-                    const sql = 'UPDATE users SET first_name = ($1), last_name = ($2), password = ($3) WHERE id = ($4) RETURNING*';
+                    const sql = 'UPDATE users SET first_name = ($1), last_name = ($2), user_name = ($3), password = ($4) WHERE id = ($5) RETURNING *';
                     const hash = bcrypt.hashSync(`${user.password}${pepper}`, parseInt(salt as string));
-                    const result = await conn.query(sql,[user.first_name, user.last_name ,hash,id]);
+                    const result = await conn.query(sql,[user.first_name, user.last_name, user.user_name, hash, id]);
                     conn.release();
                     return result.rows[0];
                 }   catch(err) {
@@ -79,22 +87,31 @@ export class storefrontUser {
                     }
                     }
 
-                async authenticate(user_name: string, password: string): Promise<User | null>{
+                async authenticate(user_name: string, password: string): Promise<User | null> {
                     try {
                         const conn = await Client.connect();
-                        const sql = 'SELECT password FROM users WHERE user_name=($1)'
+                        const sql = 'SELECT password FROM users WHERE user_name=($1)';
                         const result = await conn.query(sql, [user_name]);
-                        console.log(password + pepper);
+                        // conn.release();
                         if(result.rows.length){
-                            const user = result.rows[0];
-                            console.log(user);
-                            if(bcrypt.compareSync(password + pepper, user.password)){
-                                return user;
-                            }
+                            console.log("i am in the if statment");
+                            const retunedPass = result.rows[0];
+                            console.log("hashpassword is " + JSON.stringify(retunedPass));
+                            console.log("password is " + password);
+                            console.log("password + pepper is " + password + pepper);
+                            console.log("retunedPass.password is " + retunedPass.password);
+                            const isPasswordValid = bcrypt.compareSync(password + pepper, retunedPass.password);
+                            console.log(isPasswordValid);
+                            if(isPasswordValid){
+                                console.log("i am in the second if statment");
+                            const sql ='SELECT id, first_name, last_name, password FROM users WHERE user_name =($1)';
+                            const user = await conn.query(sql,[user_name]);
+                            return user.rows[0];
                         }
-
+                        }
+                        conn.release();
                         return null;
-
+                        
                     } catch (error) {
                         throw new Error(`cannot authenticate the user ${error}`);
                     }

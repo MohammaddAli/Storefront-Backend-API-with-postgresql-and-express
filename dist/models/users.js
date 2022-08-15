@@ -83,7 +83,7 @@ var storefrontUser = /** @class */ (function () {
                         return [4 /*yield*/, database_1["default"].connect()];
                     case 1:
                         conn = _a.sent();
-                        sql = 'SELECT * FROM users WHERE id = ($1) RETURNING*';
+                        sql = 'SELECT * FROM users WHERE id = ($1)';
                         return [4 /*yield*/, conn.query(sql, [id])];
                     case 2:
                         result = _a.sent();
@@ -104,14 +104,21 @@ var storefrontUser = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
+                        console.log('the create beginning');
                         return [4 /*yield*/, database_1["default"].connect()];
                     case 1:
                         conn = _a.sent();
-                        sql = 'INSERT INTO users (first_name,last_name,user_name,password) VALUES(($1, $2, $3, $4) RETURNING*';
-                        hash = bcrypt_1["default"].hashSync("".concat(user.password).concat(pepper), parseInt(salt));
+                        console.log('before sql');
+                        sql = 'INSERT INTO users (first_name,last_name,user_name,password) VALUES($1, $2, $3, $4) RETURNING *';
+                        console.log('after sql and before hashsync');
+                        hash = bcrypt_1["default"].hashSync(user.password + pepper, parseInt(salt));
+                        console.log('after hashsync');
+                        console.log('hash is ' + hash);
                         return [4 /*yield*/, conn.query(sql, [user.first_name, user.last_name, user.user_name, hash])];
                     case 2:
                         result = _a.sent();
+                        console.log('after result');
+                        console.log(result);
                         conn.release();
                         return [2 /*return*/, result.rows[0]];
                     case 3:
@@ -132,9 +139,9 @@ var storefrontUser = /** @class */ (function () {
                         return [4 /*yield*/, database_1["default"].connect()];
                     case 1:
                         conn = _a.sent();
-                        sql = 'UPDATE users SET first_name = ($1), last_name = ($2), password = ($3) WHERE id = ($4) RETURNING*';
+                        sql = 'UPDATE users SET first_name = ($1), last_name = ($2), user_name = ($3), password = ($4) WHERE id = ($5) RETURNING *';
                         hash = bcrypt_1["default"].hashSync("".concat(user.password).concat(pepper), parseInt(salt));
-                        return [4 /*yield*/, conn.query(sql, [user.first_name, user.last_name, hash, id])];
+                        return [4 /*yield*/, conn.query(sql, [user.first_name, user.last_name, user.user_name, hash, id])];
                     case 2:
                         result = _a.sent();
                         conn.release();
@@ -173,11 +180,11 @@ var storefrontUser = /** @class */ (function () {
     };
     storefrontUser.prototype.authenticate = function (user_name, password) {
         return __awaiter(this, void 0, void 0, function () {
-            var conn, sql, result, user, error_1;
+            var conn, sql, result, retunedPass, isPasswordValid, sql_1, user, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 3, , 4]);
+                        _a.trys.push([0, 5, , 6]);
                         return [4 /*yield*/, database_1["default"].connect()];
                     case 1:
                         conn = _a.sent();
@@ -185,19 +192,29 @@ var storefrontUser = /** @class */ (function () {
                         return [4 /*yield*/, conn.query(sql, [user_name])];
                     case 2:
                         result = _a.sent();
-                        console.log(password + pepper);
-                        if (result.rows.length) {
-                            user = result.rows[0];
-                            console.log(user);
-                            if (bcrypt_1["default"].compareSync(password + pepper, user.password)) {
-                                return [2 /*return*/, user];
-                            }
-                        }
-                        return [2 /*return*/, null];
+                        if (!result.rows.length) return [3 /*break*/, 4];
+                        console.log("i am in the if statment");
+                        retunedPass = result.rows[0];
+                        console.log("hashpassword is " + JSON.stringify(retunedPass));
+                        console.log("password is " + password);
+                        console.log("password + pepper is " + password + pepper);
+                        console.log("retunedPass.password is " + retunedPass.password);
+                        isPasswordValid = bcrypt_1["default"].compareSync(password + pepper, retunedPass.password);
+                        console.log(isPasswordValid);
+                        if (!isPasswordValid) return [3 /*break*/, 4];
+                        console.log("i am in the second if statment");
+                        sql_1 = 'SELECT id, first_name, last_name, password FROM users WHERE user_name =($1)';
+                        return [4 /*yield*/, conn.query(sql_1, [user_name])];
                     case 3:
+                        user = _a.sent();
+                        return [2 /*return*/, user.rows[0]];
+                    case 4:
+                        conn.release();
+                        return [2 /*return*/, null];
+                    case 5:
                         error_1 = _a.sent();
                         throw new Error("cannot authenticate the user ".concat(error_1));
-                    case 4: return [2 /*return*/];
+                    case 6: return [2 /*return*/];
                 }
             });
         });

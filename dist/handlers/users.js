@@ -82,6 +82,7 @@ var show = function (req, res) { return __awaiter(void 0, void 0, void 0, functi
                 try {
                     headerAuthorization = req.headers.authorization;
                     token = headerAuthorization.split(' ')[1];
+                    // console.log("headerAuthorization is " + headerAuthorization);
                     jsonwebtoken_1["default"].verify(token, process.env.TOKEN_SECRET);
                 }
                 catch (error) {
@@ -116,6 +117,7 @@ var create = function (req, res) { return __awaiter(void 0, void 0, void 0, func
             case 1:
                 users = _a.sent();
                 token = jsonwebtoken_1["default"].sign({ user: users }, process.env.TOKEN_SECRET);
+                // console.log('after jwt');
                 res.json(token);
                 return [3 /*break*/, 3];
             case 2:
@@ -136,9 +138,9 @@ var update = function (req, res) { return __awaiter(void 0, void 0, void 0, func
                     headerAuthorization = req.headers.authorization;
                     token = headerAuthorization.split(' ')[1];
                     decoded = jsonwebtoken_1["default"].verify(token, process.env.TOKEN_SECRET);
-                    if (decoded.user_name !== req.body.user_name) {
-                        throw new Error('User Name does not match!');
-                    }
+                    // if((decoded as jwt.JwtPayload).user_name !== req.body.user_name) {
+                    //     throw new Error('User Name does not match!');
+                    // }
                 }
                 catch (err) {
                     res.status(401);
@@ -201,8 +203,10 @@ var authenticate = function (req, res) { return __awaiter(void 0, void 0, void 0
             case 0:
                 try {
                     headerAuthorization = req.headers.authorization;
+                    console.log('before split in auth');
                     token = headerAuthorization.split(' ')[1];
                     jsonwebtoken_1["default"].verify(token, process.env.TOKEN_SECRET);
+                    console.log("the token in jwt.veriftin user handlers is".concat(JSON.stringify(token)));
                 }
                 catch (error) {
                     res.status(401);
@@ -216,6 +220,7 @@ var authenticate = function (req, res) { return __awaiter(void 0, void 0, void 0
             case 2:
                 userAuthentication = _a.sent();
                 res.json(userAuthentication);
+                console.log("the user Authentication in jwt.verift in user handlers is ".concat(JSON.stringify(userAuthentication)));
                 return [3 /*break*/, 4];
             case 3:
                 err_6 = _a.sent();

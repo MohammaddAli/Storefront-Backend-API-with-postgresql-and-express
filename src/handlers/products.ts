@@ -8,9 +8,9 @@ const storeProduct = new storefrontProduct();
 
 const index = async (req: Request, res: Response)=>{
     try {
-        const headerAuthorization = req.headers.authorization
-            const token = (headerAuthorization as string).split(' ')[1]
-            jwt.verify(token, process.env.TOKEN_SECRET as Secret)
+        const headerAuthorization = req.headers.authorization;
+            const token = (headerAuthorization as string).split(' ')[1];
+            jwt.verify(token, process.env.TOKEN_SECRET as Secret);
        } catch (error) {
         res.status(401);
         res.json(`acces denied, INVALID TOKEN ${error}`);
@@ -27,9 +27,9 @@ const index = async (req: Request, res: Response)=>{
 
 const show = async (req: Request, res: Response)=>{
     try {
-        const headerAuthorization = req.headers.authorization
-            const token = (headerAuthorization as string).split(' ')[1]
-            jwt.verify(token, process.env.TOKEN_SECRET as Secret)
+        const headerAuthorization = req.headers.authorization;
+            const token = (headerAuthorization as string).split(' ')[1];
+            jwt.verify(token, process.env.TOKEN_SECRET as Secret);
        } catch (error) {
         res.status(401);
         res.json(`acces denied, INVALID TOKEN ${error}`);
@@ -46,9 +46,9 @@ const show = async (req: Request, res: Response)=>{
 
 const create = async (req: Request, res: Response)=>{
     try {
-        const headerAuthorization = req.headers.authorization
-            const token = (headerAuthorization as string).split(' ')[1]
-            jwt.verify(token, process.env.TOKEN_SECRET as Secret)
+        const headerAuthorization = req.headers.authorization;
+            const token = (headerAuthorization as string).split(' ')[1];
+            jwt.verify(token, process.env.TOKEN_SECRET as Secret);
        } catch (error) {
         res.status(401);
         res.json(`acces denied, INVALID TOKEN ${error}`);
@@ -65,9 +65,9 @@ const create = async (req: Request, res: Response)=>{
 
 const update = async (req: Request, res: Response)=>{
     try {
-        const headerAuthorization = req.headers.authorization
-            const token = (headerAuthorization as string).split(' ')[1]
-            jwt.verify(token, process.env.TOKEN_SECRET as Secret)
+        const headerAuthorization = req.headers.authorization;
+            const token = (headerAuthorization as string).split(' ')[1];
+            jwt.verify(token, process.env.TOKEN_SECRET as Secret);
        } catch (error) {
         res.status(401);
         res.json(`acces denied, INVALID TOKEN ${error}`);
@@ -88,16 +88,16 @@ const update = async (req: Request, res: Response)=>{
 
 const destroy = async (req: Request, res: Response)=>{
     try {
-        const headerAuthorization = req.headers.authorization
-            const token = (headerAuthorization as string).split(' ')[1]
-            jwt.verify(token, process.env.TOKEN_SECRET as Secret)
+            const headerAuthorization = req.headers.authorization;
+            const token = (headerAuthorization as string).split(' ')[1];
+            jwt.verify(token, process.env.TOKEN_SECRET as Secret);
        } catch (error) {
         res.status(401);
         res.json(`acces denied, INVALID TOKEN ${error}`);
         return;
        }
     try {
-        const products = await storeProduct.delete(req.params as unknown as number,req.body);
+        const products = await storeProduct.delete(/*req.params as unknown as number*/req.body.id,req.body);
         res.json(products);
     } catch(err){
         res.status(400);
@@ -106,11 +106,11 @@ const destroy = async (req: Request, res: Response)=>{
 }
 
 const product_routes = (app: express.Application)=> {
-    app.get('/product',index)
-    app.get('/product/:id',show)
-    app.post('/product',create)
-    app.put('/updateProduct',update)
-    app.delete('/deleteProduct',destroy)
+    app.get('/product',index);
+    app.get('/product/:id',show);
+    app.post('/product',create);
+    app.put('/updateProduct',update);
+    app.delete('/deleteProduct/:id',destroy);
 }
 
 

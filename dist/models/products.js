@@ -78,7 +78,7 @@ var storefrontProduct = /** @class */ (function () {
                         return [4 /*yield*/, database_1["default"].connect()];
                     case 1:
                         conn = _a.sent();
-                        sql = 'SELECT * FROM products WHERE id = ($1) RETURNING*';
+                        sql = 'SELECT * FROM products WHERE id = ($1)';
                         return [4 /*yield*/, conn.query(sql, [id])];
                     case 2:
                         result = _a.sent();
@@ -102,7 +102,7 @@ var storefrontProduct = /** @class */ (function () {
                         return [4 /*yield*/, database_1["default"].connect()];
                     case 1:
                         conn = _a.sent();
-                        sql = 'INSERT INTO orders (name,price) VALUES(($1, $2) RETURNING*';
+                        sql = 'INSERT INTO products (name,price) VALUES($1,$2) RETURNING *';
                         return [4 /*yield*/, conn.query(sql, [product.name, product.price])];
                     case 2:
                         result = _a.sent();
@@ -126,7 +126,7 @@ var storefrontProduct = /** @class */ (function () {
                         return [4 /*yield*/, database_1["default"].connect()];
                     case 1:
                         conn = _a.sent();
-                        sql = 'UPDATE products SET name = ($1), price = ($2) WHERE id = ($3) RETURNING*';
+                        sql = 'UPDATE products SET name = ($1), price = ($2) WHERE id = ($3) RETURNING *';
                         return [4 /*yield*/, conn.query(sql, [product.name, product.price, id])];
                     case 2:
                         result = _a.sent();

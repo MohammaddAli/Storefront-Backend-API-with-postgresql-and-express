@@ -8,9 +8,9 @@ const storeOrder = new storefrontOrder();
 
 const index = async (req: Request, res: Response)=>{
     try {
-        const headerAuthorization = req.headers.authorization
-            const token = (headerAuthorization as string).split(' ')[1]
-            jwt.verify(token, process.env.TOKEN_SECRET as Secret)
+        const headerAuthorization = req.headers.authorization;
+            const token = (headerAuthorization as string).split(' ')[1];
+            jwt.verify(token, process.env.TOKEN_SECRET as Secret);
        } catch (error) {
         res.status(401);
         res.json(`acces denied, INVALID TOKEN ${error}`);
@@ -27,9 +27,9 @@ const index = async (req: Request, res: Response)=>{
 
 const show = async (req: Request, res: Response)=>{
     try {
-        const headerAuthorization = req.headers.authorization
-            const token = (headerAuthorization as string).split(' ')[1]
-            jwt.verify(token, process.env.TOKEN_SECRET as Secret)
+        const headerAuthorization = req.headers.authorization;
+            const token = (headerAuthorization as string).split(' ')[1];
+            jwt.verify(token, process.env.TOKEN_SECRET as Secret);
        } catch (error) {
         res.status(401);
         res.json(`acces denied, INVALID TOKEN ${error}`);
@@ -46,17 +46,22 @@ const show = async (req: Request, res: Response)=>{
 
 const create = async (req: Request, res: Response)=>{
     try {
-        const headerAuthorization = req.headers.authorization
-            const token = (headerAuthorization as string).split(' ')[1]
-            jwt.verify(token, process.env.TOKEN_SECRET as Secret)
+        console.log('before headerAuthorization in create order')
+        const headerAuthorization = req.headers.authorization;
+            const token = (headerAuthorization as string).split(' ')[1];
+            jwt.verify(token, process.env.TOKEN_SECRET as Secret);
        } catch (error) {
         res.status(401);
         res.json(`acces denied, INVALID TOKEN ${error}`);
         return;
        }
     try {
+        console.log('before creating order in create order')
         const order = await storeOrder.create(req.body);
+        console.log('before res.json order');
         res.json(order);
+        console.log('order ' + order);
+
     } catch(err){
         res.status(400);
         res.json(err);
@@ -65,9 +70,9 @@ const create = async (req: Request, res: Response)=>{
 
 const update = async (req: Request, res: Response)=>{
     try {
-        const headerAuthorization = req.headers.authorization
-            const token = (headerAuthorization as string).split(' ')[1]
-            jwt.verify(token, process.env.TOKEN_SECRET as Secret)
+        const headerAuthorization = req.headers.authorization;
+            const token = (headerAuthorization as string).split(' ')[1];
+            jwt.verify(token, process.env.TOKEN_SECRET as Secret);
        } catch (error) {
         res.status(401);
         res.json(`acces denied, INVALID TOKEN ${error}`);
@@ -87,9 +92,9 @@ const update = async (req: Request, res: Response)=>{
 
 const destroy = async (req: Request, res: Response)=>{
     try {
-        const headerAuthorization = req.headers.authorization
-            const token = (headerAuthorization as string).split(' ')[1]
-            jwt.verify(token, process.env.TOKEN_SECRET as Secret)
+        const headerAuthorization = req.headers.authorization;
+            const token = (headerAuthorization as string).split(' ')[1];
+            jwt.verify(token, process.env.TOKEN_SECRET as Secret);
        } catch (error) {
         res.status(401);
         res.json(`acces denied, INVALID TOKEN ${error}`);
@@ -106,9 +111,9 @@ const destroy = async (req: Request, res: Response)=>{
 
 const addProduct = async (req: Request, res: Response)=>{
     try {
-        const headerAuthorization = req.headers.authorization
-            const token = (headerAuthorization as string).split(' ')[1]
-            jwt.verify(token, process.env.TOKEN_SECRET as Secret)
+        const headerAuthorization = req.headers.authorization;
+            const token = (headerAuthorization as string).split(' ')[1];
+            jwt.verify(token, process.env.TOKEN_SECRET as Secret);
        } catch (error) {
         res.status(401);
         res.json(`acces denied, INVALID TOKEN ${error}`);
@@ -125,9 +130,9 @@ const addProduct = async (req: Request, res: Response)=>{
 
 const currentOrder = async (req: Request, res: Response)=>{
     try {
-        const headerAuthorization = req.headers.authorization
-            const token = (headerAuthorization as string).split(' ')[1]
-            jwt.verify(token, process.env.TOKEN_SECRET as Secret)
+        const headerAuthorization = req.headers.authorization;
+            const token = (headerAuthorization as string).split(' ')[1];
+            jwt.verify(token, process.env.TOKEN_SECRET as Secret);
        } catch (error) {
         res.status(401);
         res.json(`acces denied, INVALID TOKEN ${error}`);
@@ -143,13 +148,13 @@ const currentOrder = async (req: Request, res: Response)=>{
 }
 
 const order_routes = (app: express.Application)=> {
-app.get('/order',index)
-app.get('/order/:id',show)
-app.post('/order',create)
-app.put('/updateOrder',update)
-app.delete('/deleteoOrder',destroy)
-app.post('order/:id/products', addProduct)
-app.get('/order/:user_id',currentOrder)
+app.get('/order',index);
+app.get('/order/:id',show);
+app.post('/order',create);
+app.put('/updateOrder',update);
+app.delete('/deleteoOrder',destroy);
+app.post('order/:id/products', addProduct);
+app.get('/order/:user_id',currentOrder);
 }
 
 export default order_routes;

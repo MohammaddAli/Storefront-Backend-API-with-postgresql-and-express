@@ -192,7 +192,7 @@ var destroy = function (req, res) { return __awaiter(void 0, void 0, void 0, fun
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, storeProduct["delete"](req.params, req.body)];
+                return [4 /*yield*/, storeProduct["delete"](/*req.params as unknown as number*/ req.body.id, req.body)];
             case 2:
                 products = _a.sent();
                 res.json(products);
@@ -211,6 +211,6 @@ var product_routes = function (app) {
     app.get('/product/:id', show);
     app.post('/product', create);
     app.put('/updateProduct', update);
-    app["delete"]('/deleteProduct', destroy);
+    app["delete"]('/deleteProduct/:id', destroy);
 };
 exports["default"] = product_routes;
