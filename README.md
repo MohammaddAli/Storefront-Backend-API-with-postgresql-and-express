@@ -1,5 +1,66 @@
 # Storefront Backend Project
 
+## About the project 
+this is a storefront api application using node js and express js for the server api , it contains of three main things 1-User 2-Order 3-Product we use Authentication and Athourization and Token methods for hashing passwords and security issues ,we use an SQL database schema by using Postgresql , we made a test in the application endpoints, we made a cart funtionality by using order-products table that makes user be able to add a cart with his products in certain order, we used a Model and Handlers architicture for the endpoints and database, we used jasmine for testing.
+
+## instructions for setting up and running the project:
+> - for connecting the database : connect to "storefront_dev"
+> - for building the migration up tables use : `npm run migrate`
+> - for dropping the migrations tables use : `npm run demigrate`
+> - for starting the server use : `npm run watch` or `npm run start`
+
+## the application Ports :
+> - the application runs on port 3000 and localhost
+> - the database runs on port 5432
+
+## Package installation instructions :
+### For installing the application packages please use `npm install`
+    "@types/cors": "^2.8.12",
+    "@types/dotenv": "^8.2.0",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "db-migrate": "^0.11.13",
+    "db-migrate-pg": "^1.2.2",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.7.3",
+    "postgres": "^3.2.4",
+    "typescript": "^4.7.4"
+    "@types/bcrypt": "^5.0.0",
+    "@types/express": "^4.17.13",
+    "@types/jasmine": "^3.10.6",
+    "@types/jsonwebtoken": "^8.5.8",
+    "@types/pg": "^7.14.11",
+    "@types/supertest": "^2.0.12",
+    "@typescript-eslint/eslint-plugin": "^5.33.1",
+    "eslint": "^8.20.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "jasmine": "^3.99.0",
+    "jasmine-spec-reporter": "^6.0.0",
+    "jasmine-ts": "^0.3.3",
+    "nodemon": "^2.0.19",
+    "prettier": "^2.7.1",
+    "supertest": "^6.2.4",
+    "ts-node": "^10.9.1",
+    "tsc-watch": "^4.6.2"
+
+> - for running prettier use : `npm run prettier`
+> - for running lint use : `npm run lint`
+> - for connecting the database : connect to "storefront_test"
+> - for running test use : `npm run test` 
+
+## Technologies and tools used:
+> - Node js
+> - Express js for server side and api
+> - Postgresql for database
+> - Lint and Prettier for linting the code
+> - json web token (JWT) and bcrypt for Authentication and Athourization
+
+
+
 ## Getting Started
 
 This repo contains a basic Node and Express app to get you started in constructing an API. To get started, clone this repo and run `yarn` in your terminal at the project root.
@@ -53,63 +114,3 @@ Before submitting, make sure that your project is complete with a `README.md`. Y
 
 Before submitting your project, spin it up and test each endpoint. If each one responds with data that matches the data shapes from the `REQUIREMENTS.md`, it is ready for submission!
 
-## About the project 
-this is a storefront api application using node js and express js for the server api , it contains of three main things 1-User 2-Order 3-Product we use Authentication and Athourization and Token methods for hashing passwords and security issues ,we use an SQL database schema by using Postgresql , we made a test in the application endpoints, we made a cart funtionality by using order-products table that makes user be able to add a cart with his products in certain order, we used a Model and Handlers architicture for the endpoints and database, we used jasmine for testing.
-
-## Technologies and tools used:
-> - Node js
-> - Express js for server side and api
-> - Postgresql for database
-> - Lint and Prettier for linting the code
-> - json web token (JWT) and bcrypt for Authentication and Athourization
-
-## Application scripts and commands for running the application:
-> - for starting the server use : `npm run watch` or `npm run start`
-> - for building the migrations tables use : `npm run migrate`
-> - for dropping the migrations tables use : `npm run demigrate`
-> - for running test use : `npm run test` 
-> - for running prettier use : `npm run prettier`
-> - for running lint use : `npm run lint`
-> - the application runs on port 3000 and localhost
-
-## Database schema and Data Shapes:
-#### Product
--  id
-- name
-- price
-#### User
-- id
-- firstName
-- lastName
-- user_name
-- password
-#### Orders
-- id
-- status of order (active or complete)
-- user_id
-
-#### Order-Products
-- id
-- quantity of each product in the order
-- order id
-- id of each product in the order
-
-## All the Endpoints :
-> - GET: http://localhost:3000/user
-> - GET:http://localhost:3000/user/:id
-> - put: http://localhost:3000/updateUser/:id
-> - post: http://localhost:3000/user
-> - delete: http://localhost:3000/deleteUser
-> - post: http://localhost:3000/authenticate
-> - GET: http://localhost:3000/order
-> - GET: http://localhost:3000/order/:id
-> - put: http://localhost:3000/updateOrder
-> - post: http://localhost:3000/order
-> - delete: http://localhost:3000/deleteoOrder
-> - GET: http://localhost:3000/order/:id/products
-> - GET: http://localhost:3000/order/:user_id
-> - GET: http://localhost:3000/product
-> - GET: http://localhost:3000/product/:id 
-> - post: http://localhost:3000/product
-> - put: http://localhost:3000/updateProduct
-> - delete: http://localhost:3000/deleteProduct/:id

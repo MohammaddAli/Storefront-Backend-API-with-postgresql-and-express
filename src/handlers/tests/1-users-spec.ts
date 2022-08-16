@@ -1,6 +1,5 @@
 import app from '../../server';
 import supertest from 'supertest';
-import client from '../../database';
 
 const request = supertest(app);
 export let token = '';

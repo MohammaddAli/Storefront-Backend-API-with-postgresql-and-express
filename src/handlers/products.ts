@@ -1,4 +1,3 @@
-import client from '../database';
 import express, { Request, Response } from 'express';
 import { Product, storefrontProduct } from '../models/products';
 import jwt, { Secret } from 'jsonwebtoken';
@@ -101,10 +100,7 @@ const destroy = async (req: Request, res: Response) => {
     return;
   }
   try {
-    const products = await storeProduct.delete(
-      /*req.params as unknown as number*/ req.body.id,
-      req.body
-    );
+    const products = await storeProduct.delete(req.body.id);
     res.json(products);
   } catch (err) {
     res.status(400);

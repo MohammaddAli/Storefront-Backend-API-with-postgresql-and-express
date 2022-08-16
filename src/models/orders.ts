@@ -40,7 +40,6 @@ export class storefrontOrder {
 
   async create(order: Order): Promise<Order> {
     try {
-      console.log(order);
       const conn = await Client.connect();
       const sql =
         'INSERT INTO orders (status,user_id) VALUES($1,$2) RETURNING *';
@@ -64,7 +63,7 @@ export class storefrontOrder {
     }
   }
 
-  async delete(id: number, order: Order): Promise<Order> {
+  async delete(id: number): Promise<Order> {
     try {
       const conn = await Client.connect();
       const sql = 'DELETE FROM orders WHERE id = ($1)';

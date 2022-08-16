@@ -55,7 +55,6 @@ const create = async (req: Request, res: Response) => {
   try {
     const order = await storeOrder.create(req.body);
     res.json(order);
-    console.log('order ' + order);
   } catch (err) {
     res.status(400);
     res.json(err);
@@ -95,7 +94,7 @@ const destroy = async (req: Request, res: Response) => {
     return;
   }
   try {
-    const order = await storeOrder.delete(req.body.id, req.body);
+    const order = await storeOrder.delete(req.body.id);
     res.json(order);
   } catch (err) {
     res.status(400);
