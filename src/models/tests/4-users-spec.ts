@@ -1,4 +1,3 @@
-import client from '../../database';
 import { User, storefrontUser } from '../users';
 
 const userStore = new storefrontUser();
