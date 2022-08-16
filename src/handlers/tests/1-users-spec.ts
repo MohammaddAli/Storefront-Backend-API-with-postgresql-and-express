@@ -23,7 +23,6 @@ describe('users handlers test', () => {
       .get('/user')
       .set('Authorization', `Bearer ${token}`);
     expect(res.status).toBe(200);
-    // console.log('im in the get all users test');
     expect({ id: 1, first_name: 'Mo', last_name: 'Ali', user_name: 'MoAli' });
   });
 

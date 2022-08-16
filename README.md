@@ -54,7 +54,7 @@ Before submitting, make sure that your project is complete with a `README.md`. Y
 Before submitting your project, spin it up and test each endpoint. If each one responds with data that matches the data shapes from the `REQUIREMENTS.md`, it is ready for submission!
 
 ## About the project 
-this is a storefront api application using node js and express js for the server api , it contains of three main things 1-User 2-Order 3-Product we use Authentication and Athourization and Token methods for hashing passwords and security issues ,we use an SQL database schema by using Postgresql , we made a test in the application endpoints, we made a cart funtionality by using order-products table that makes user be able to add a cart with his products in certain order, we used a Model and Handlers architicture for the endpoints and database.
+this is a storefront api application using node js and express js for the server api , it contains of three main things 1-User 2-Order 3-Product we use Authentication and Athourization and Token methods for hashing passwords and security issues ,we use an SQL database schema by using Postgresql , we made a test in the application endpoints, we made a cart funtionality by using order-products table that makes user be able to add a cart with his products in certain order, we used a Model and Handlers architicture for the endpoints and database, we used jasmine for testing.
 
 ## Technologies and tools used:
 > - Node js
@@ -77,14 +77,12 @@ this is a storefront api application using node js and express js for the server
 -  id
 - name
 - price
-
 #### User
 - id
 - firstName
 - lastName
 - user_name
 - password
-
 #### Orders
 - id
 - status of order (active or complete)
@@ -96,7 +94,7 @@ this is a storefront api application using node js and express js for the server
 - order id
 - id of each product in the order
 
-
+## All the Endpoints :
 > - GET: http://localhost:3000/user
 > - GET:http://localhost:3000/user/:id
 > - put: http://localhost:3000/updateUser/:id

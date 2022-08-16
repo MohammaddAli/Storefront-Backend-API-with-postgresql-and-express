@@ -1,12 +1,11 @@
 import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
-import order_routes from './handlers/orders'
-import user_routes from './handlers/users'
-import product_routes from './handlers/products'
-
+import order_routes from './handlers/orders';
+import user_routes from './handlers/users';
+import product_routes from './handlers/products';
 
 const app: express.Application = express();
-const address: string = '0.0.0.0:3000';
+const address = '0.0.0.0:3000';
 
 app.use(bodyParser.json());
 

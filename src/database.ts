@@ -14,8 +14,6 @@ const {
   ENV,
 } = process.env;
 
-
-
 if (ENV === 'dev') {
   client = new Pool({
     host: POSTGTRES_HOST,

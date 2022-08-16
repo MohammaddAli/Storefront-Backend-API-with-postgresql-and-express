@@ -15,14 +15,6 @@ describe('users models test', () => {
     const createUser = await userStore.create(user);
     user.id = createUser.id;
   });
-  // afterAll(async () => {
-  //   const conn = await client.connect();
-  //   const sql = 'DELETE FROM users';
-  //   await conn.query(sql);
-  //   const sql2 = 'ALTER SEQUENCE users_id_seq RESTART with 1';
-  //   await conn.query(sql2);
-  //   conn.release();
-  // });
 
   it('the create methode should return a new created user', async () => {
     const createdUser = await userStore.create({
@@ -56,19 +48,19 @@ describe('users models test', () => {
     });
 
     it('should have a show method', () => {
-      expect(userStore.index).toBeDefined();
+      expect(userStore.show).toBeDefined();
     });
 
     it('should have a create method', () => {
-      expect(userStore.index).toBeDefined();
+      expect(userStore.create).toBeDefined();
     });
 
     it('should have an update method', () => {
-      expect(userStore.index).toBeDefined();
+      expect(userStore.update).toBeDefined();
     });
 
     it('should have a delete method', () => {
-      expect(userStore.index).toBeDefined();
+      expect(userStore.delete).toBeDefined();
     });
 
     it('should have an authenticate method', () => {
