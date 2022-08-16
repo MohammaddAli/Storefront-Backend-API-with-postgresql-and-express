@@ -13,6 +13,11 @@ this is a storefront api application using node js and express js for the server
 > - the application runs on port 3000 and localhost
 > - the database runs on port 5432
 
+## Database setup :
+**Create user**
+CREATE DATABASE storefront_dev;
+CREATE DATABASE storefront_test;
+
 ## Package installation instructions :
 ### For installing the application packages please use `npm install`
     "@types/cors": "^2.8.12",
@@ -59,6 +64,18 @@ this is a storefront api application using node js and express js for the server
 > - Lint and Prettier for linting the code
 > - json web token (JWT) and bcrypt for Authentication and Athourization
 
+## Environment Variables :
+> - We used the dotenv package for environment variables 
+> - environment variables used in this projet are :
+- POSTGTRES_HOST
+- POSTGTRES_DB
+- POSTGTRES_TEST_DB
+- POSTGTRES_USER
+- POSTGTRES_PASSWORD
+- ENV
+- BCRYPT_PASSWORD
+- SALT_ROUNDS
+- TOKEN_SECRET
 
 
 ## Getting Started

@@ -4,24 +4,24 @@ The company stakeholders want to create an online storefront to showcase their g
 These are the notes from a meeting with the frontend developer that describe what endpoints the API needs to supply, as well as data shapes the frontend and backend have agreed meet the requirements of the application. 
 
 ## API Endpoints 
-> - GET: http://localhost:3000/user
-> - GET:http://localhost:3000/user/:id
-> - put: http://localhost:3000/updateUser/:id
-> - post: http://localhost:3000/user
-> - delete: http://localhost:3000/deleteUser
-> - post: http://localhost:3000/authenticate
-> - GET: http://localhost:3000/order
-> - GET: http://localhost:3000/order/:id
-> - put: http://localhost:3000/updateOrder
-> - post: http://localhost:3000/order
-> - delete: http://localhost:3000/deleteoOrder
-> - GET: http://localhost:3000/order/:id/products
-> - GET: http://localhost:3000/order/:user_id
-> - GET: http://localhost:3000/product
-> - GET: http://localhost:3000/product/:id 
-> - post: http://localhost:3000/product
-> - put: http://localhost:3000/updateProduct
-> - delete: http://localhost:3000/deleteProduct/:id
+> - AN INDEX route: GET: http://localhost:3000/user
+> - A SHOW route: GET:http://localhost:3000/user/:id
+> - AN UPDATE route: put: http://localhost:3000/updateUser/:id
+> - A CREATE route: post: http://localhost:3000/user
+> - A DELETE route: delete: http://localhost:3000/deleteUser
+> - AN AUTHENTICATE route: post: http://localhost:3000/authenticate
+> - AN INDEX route: GET: http://localhost:3000/order
+> - A SHOW route: GET: http://localhost:3000/order/:id
+> - AN UPDATE route: put: http://localhost:3000/updateOrder
+> - A CREATE route: post: http://localhost:3000/order
+> - A DELETE route: delete: http://localhost:3000/deleteoOrder
+> - A SHOW route: GET: http://localhost:3000/order/:id/products
+> - A SHOW route: GET: http://localhost:3000/order/:user_id
+> - AN INDEX route: GET: http://localhost:3000/product
+> - A SHOW route: GET: http://localhost:3000/product/:id 
+> - A CREATE route: post: http://localhost:3000/product
+> - AN UPDATE route: put: http://localhost:3000/updateProduct
+> - A DELETE route: delete: http://localhost:3000/deleteProduct/:id
 
 ## Database :
 #### Products
