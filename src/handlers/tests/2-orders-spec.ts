@@ -23,10 +23,7 @@ describe('orders handlers test', () => {
       .get('/order')
       .set('Authorization', `Bearer ${token}`)
       .expect(200)
-      .expect([
-        { id: 1, status: 'Active', user_id: '1' },
-        { id: 2, status: 'Active', user_id: '1' },
-      ]);
+      .expect([{ id: 1, status: 'Active', user_id: '1' }]);
   });
 
   it('orders should get order by ID', async () => {

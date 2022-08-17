@@ -102,15 +102,6 @@ const destroy = async (req: Request, res: Response) => {
 
 const authenticate = async (req: Request, res: Response) => {
   try {
-    const headerAuthorization = req.headers.authorization;
-    const token = (headerAuthorization as string).split(' ')[1];
-    jwt.verify(token, process.env.TOKEN_SECRET as Secret);
-  } catch (error) {
-    res.status(401);
-    res.json(`acces denied, INVALID TOKEN ${error}`);
-    return;
-  }
-  try {
     const userAuthentication = await userStore.authenticate(
       req.body.user_name,
       req.body.password
