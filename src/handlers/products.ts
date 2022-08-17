@@ -6,15 +6,6 @@ const storeProduct = new storefrontProduct();
 
 const index = async (req: Request, res: Response) => {
   try {
-    const headerAuthorization = req.headers.authorization;
-    const token = (headerAuthorization as string).split(' ')[1];
-    jwt.verify(token, process.env.TOKEN_SECRET as Secret);
-  } catch (error) {
-    res.status(401);
-    res.json(`acces denied, INVALID TOKEN ${error}`);
-    return;
-  }
-  try {
     const products = await storeProduct.index();
     res.json(products);
   } catch (err) {
@@ -24,15 +15,6 @@ const index = async (req: Request, res: Response) => {
 };
 
 const show = async (req: Request, res: Response) => {
-  try {
-    const headerAuthorization = req.headers.authorization;
-    const token = (headerAuthorization as string).split(' ')[1];
-    jwt.verify(token, process.env.TOKEN_SECRET as Secret);
-  } catch (error) {
-    res.status(401);
-    res.json(`acces denied, INVALID TOKEN ${error}`);
-    return;
-  }
   try {
     const products = await storeProduct.show(
       req.params.id as unknown as number
